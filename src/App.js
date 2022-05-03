@@ -81,7 +81,7 @@ function App() {
           />
           &nbsp;
           <button type="submit" className="btn btn-info">
-            {isEditing ? "Edit" : "Submit"}
+            {isEditing ? "Edit" : "Add"}
           </button>
         </div>
       </form>
