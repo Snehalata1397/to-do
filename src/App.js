@@ -3,6 +3,8 @@ import "./index.css";
 import List from "./components/List";
 import Alert from "./components/Alert";
 
+/////////////////////////////// Storing the data in local storage ////////////////////////////////////
+
 const getLocalStorage = () => {
   let list = localStorage.getItem("list");
   if (list) {
@@ -14,6 +16,9 @@ const getLocalStorage = () => {
 
 
 function App() {
+  
+  /////////////////////////////// different states /////////////////////////////////////////////////////////
+  
   const [name, setName] = useState("");
   const [list, setList] = useState(getLocalStorage());
   const [isEditing, setIdEditing] = useState(false);
@@ -23,6 +28,9 @@ function App() {
   useEffect(() => {
     localStorage.setItem("list", JSON.stringify(list));
   }, [list]);
+  
+  ////////////////////////////////////////// handleSubmit function //////////////////////////////////////////////
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name) {
@@ -47,24 +55,38 @@ function App() {
       setName("");
     }
   };
+  
+  /////////////////////////////////////////// showAlert function //////////////////////////////////////////////
+  
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({ show, type, msg });
   };
+  
+  ///////////////////////////////////////// removeItem function /////////////////////////////////////
+  
   const removeItem = (id) => {
     showAlert(true, "danger", "Item removed");
     setList(list.filter((item) => item.id !== id));
   };
+  
+  /////////////////////////////////// editItem function //////////////////////////////////////////
+  
   const editItem = (id) => {
     const editItem = list.find((item) => item.id === id);
     setIdEditing(true);
     setEditId(id);
     setName(editItem.title);
   };
+  
+  ////////////////////////////////////////// clearList function ////////////////////////////////////////////
+  
   const clearList = () => {
     showAlert(true, "danger", "Empty list");
     setList([]);
   };
 
+  //////////////////////////////////// UI Part /////////////////////////////////////
+  
   return (
     <section className="section-center">
       <form onSubmit={handleSubmit}>
